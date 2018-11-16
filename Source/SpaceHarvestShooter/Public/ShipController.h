@@ -31,4 +31,7 @@ public:
 	void FlyForward(float axisValue);
 	UFUNCTION(BlueprintCallable)
 	void FlyHorizontal(float axisValue);
+
+	UFUNCTION(BlueprintCallable)
+	void FireWeapon();
 };

@@ -24,11 +24,20 @@ public:
 	void Tick(float DeltaSeconds) override;
 	void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
+	/* Fire a shot in the specified direction */
+	void Fire(FVector FireDirection);
+
+	/* Handler for the fire timer expiry */
+	void ShotTimerExpired();
+
+
 private:
 
 	void HandleMovement();
 
+
+
 	AWeaponBase* weaponBase;
-	void OnFire(FVector FireDirection);
+
 };
 

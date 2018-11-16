@@ -27,9 +27,9 @@ ASpaceHarvestShooterPawn::ASpaceHarvestShooterPawn()
 	ShipMeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	ShipMeshComponent->SetStaticMesh(ShipMesh.Object);
 	
-	// Cache our sound effect
-	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
-	FireSound = FireAudio.Object;
+	//// Cache our sound effect
+	//static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
+	//FireSound = FireAudio.Object;
 
 	// Create a camera boom...
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -47,9 +47,19 @@ ASpaceHarvestShooterPawn::ASpaceHarvestShooterPawn()
 	// Movement
 	MoveSpeed = 1000.0f;
 	// Weapon
-	GunOffset = FVector(90.f, 0.f, 0.f);
+	/*GunOffset = FVector(90.f, 0.f, 0.f);
 	FireRate = 0.1f;
-	bCanFire = true;
+	bCanFire = true;*/
+
+	if (WeaponType != NULL)
+	{
+		Weapon = GetWorld()->SpawnActor<AWeaponBase>(WeaponType);
+
+		Weapon->GetWeaponMesh()->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+
+		Weapon->SetOwner(this);
+	}
+
 }
 
 void ASpaceHarvestShooterPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -99,41 +109,41 @@ void ASpaceHarvestShooterPawn::Tick(float DeltaSeconds)
 	FireShot(FireDirection);
 }
 
-void ASpaceHarvestShooterPawn::FireShot(FVector FireDirection)
-{
-	// If it's ok to fire again
-	if (bCanFire == true)
-	{
-		// If we are pressing fire stick in a direction
-		if (FireDirection.SizeSquared() > 0.0f)
-		{
-			const FRotator FireRotation = FireDirection.Rotation();
-			// Spawn projectile at an offset from this pawn
-			const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
-
-			UWorld* const World = GetWorld();
-			if (World != NULL)
-			{
-				// spawn the projectile
-				World->SpawnActor<ASpaceHarvestShooterProjectile>(SpawnLocation, FireRotation);
-			}
-
-			bCanFire = false;
-			World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &ASpaceHarvestShooterPawn::ShotTimerExpired, FireRate);
-
-			// try and play the sound if specified
-			if (FireSound != nullptr)
-			{
-				UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-			}
-
-			bCanFire = false;
-		}
-	}
-}
-
-void ASpaceHarvestShooterPawn::ShotTimerExpired()
-{
-	bCanFire = true;
-}
+//void ASpaceHarvestShooterPawn::FireShot(FVector FireDirection)
+//{
+//	// If it's ok to fire again
+//	if (bCanFire == true)
+//	{
+//		// If we are pressing fire stick in a direction
+//		if (FireDirection.SizeSquared() > 0.0f)
+//		{
+//			const FRotator FireRotation = FireDirection.Rotation();
+//			// Spawn projectile at an offset from this pawn
+//			const FVector SpawnLocation = GetActorLocation() + FireRotation.RotateVector(GunOffset);
+//
+//			UWorld* const World = GetWorld();
+//			if (World != NULL)
+//			{
+//				// spawn the projectile
+//				World->SpawnActor<ASpaceHarvestShooterProjectile>(SpawnLocation, FireRotation);
+//			}
+//
+//			bCanFire = false;
+//			World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &ASpaceHarvestShooterPawn::ShotTimerExpired, FireRate);
+//
+//			// try and play the sound if specified
+//			if (FireSound != nullptr)
+//			{
+//				UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+//			}
+//
+//			bCanFire = false;
+//		}
+//	}
+//}
+//
+//void ASpaceHarvestShooterPawn::ShotTimerExpired()
+//{
+//	bCanFire = true;
+//}
 

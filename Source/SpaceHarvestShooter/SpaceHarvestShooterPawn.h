@@ -24,11 +24,11 @@ public:
 	void Tick(float DeltaSeconds) override;
 	void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
+	void Fire(FVector direction);
 
 
 private:
 
 	void HandleMovement();
-
 };
 

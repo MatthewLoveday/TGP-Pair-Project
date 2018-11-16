@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-
+#include "WeaponBase.h"
 #include "SpaceHarvestShooterPawn.generated.h"
 
 UCLASS(Blueprintable)
@@ -24,11 +24,11 @@ public:
 	void Tick(float DeltaSeconds) override;
 	void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-
-
 private:
 
 	void HandleMovement();
 
+	AWeaponBase* weaponBase;
+	void OnFire(FVector FireDirection);
 };
 

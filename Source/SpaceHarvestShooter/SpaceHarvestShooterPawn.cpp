@@ -43,7 +43,7 @@ void ASpaceHarvestShooterPawn::Tick(float DeltaSeconds)
 	
 }
 
-void ASpaceHarvestShooterPawn::OnFire(FVector FireDirection)
+void ASpaceHarvestShooterPawn::Fire(FVector FireDirection)
 {
 	weaponBase->FireShot(FireDirection);
 }

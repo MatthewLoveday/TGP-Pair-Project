@@ -16,12 +16,14 @@ class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
-	float forceAmount = 10.0f;
+	float Thrust = 90000.0f;
+
+	UPROPERTY(EditAnywhere)
+	float Torque = 10000.0f;
 
 	void Tick(float DeltaSeconds) override;
 
-	UFUNCTION(BlueprintCallable)
-	void BindInput();
+	void SetupInputComponent();
 	
 public:
 
@@ -35,6 +37,5 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void FlyHorizontal(float axisValue);
 
-	UFUNCTION(BlueprintCallable)
 	void FireWeapon();
 };

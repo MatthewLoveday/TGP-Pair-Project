@@ -20,8 +20,7 @@ class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 
 	void Tick(float DeltaSeconds) override;
 
-	UFUNCTION(BlueprintCallable)
-	void BindInput();
+	void SetupInputComponent();
 	
 public:
 
@@ -35,6 +34,5 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void FlyHorizontal(float axisValue);
 
-	UFUNCTION(BlueprintCallable)
 	void FireWeapon();
 };

@@ -6,8 +6,6 @@
 
 AShipController::AShipController()
 {
-
-	UE_LOG(LogTemp, Warning, TEXT("Constructor!"));
 	SetupInputComponent();
 }
 
@@ -47,11 +45,8 @@ void AShipController::FireWeapon()
 
 	FVector direction = shooter->GetActorForwardVector();
 
-	FString directionString = "Fire in Direction: " + direction.ToString();
-
 	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, directionString);
-
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Fire in Direction: " + direction.ToString());
 
 	shooter->Fire(direction);
 }

@@ -3,26 +3,30 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "Enemy_Base.generated.h"
+#include "GameFramework/Pawn.h"
+#include "EnemyPawn.generated.h"
 
 UCLASS()
-class SPACEHARVESTSHOOTER_API AEnemy_Base : public ACharacter
+class SPACEHARVESTSHOOTER_API AEnemyPawn : public APawn
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	AEnemy_Base();
+	// Sets default values for this pawn's properties
+	AEnemyPawn();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere)
+		float forceAmount = 10.0f;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
-	
+	UFUNCTION(BlueprintCallable)
+		void FireWeapon();
+
 };

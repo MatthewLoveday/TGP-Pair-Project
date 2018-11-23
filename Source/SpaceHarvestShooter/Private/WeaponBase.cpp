@@ -41,7 +41,7 @@ void AWeaponBase::Tick(float DeltaTime)
 void AWeaponBase::FireShot(FVector FireDirection)
 {
 	// If it's ok to fire again
-	if (bCanFire == true)
+	if (bCanFire)
 	{
 		// If we are pressing fire stick in a direction
 		if (FireDirection.SizeSquared() > 0.0f)

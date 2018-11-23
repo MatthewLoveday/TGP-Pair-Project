@@ -24,6 +24,9 @@ class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 	void BindInput();
 	
 public:
+
+	AShipController();
+
 	UFUNCTION(BlueprintCallable)
 	void HandleMovement();
 

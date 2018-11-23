@@ -2,6 +2,11 @@
 #include "../Public/ShipController.h"
 #include "SpaceHarvestShooterPawn.h"
 
+AShipController::AShipController()
+{
+
+}
+
 void AShipController::Tick(float DeltaSeconds)
 {
 }

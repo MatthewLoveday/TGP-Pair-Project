@@ -6,8 +6,6 @@
 
 AShipController::AShipController()
 {
-
-	UE_LOG(LogTemp, Warning, TEXT("Constructor!"));
 	SetupInputComponent();
 }
 
@@ -42,14 +40,13 @@ void AShipController::FlyHorizontal(float axisValue)
 
 void AShipController::FireWeapon()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Shoot!"));
-
 	//Get Character, then cast to shooter pawn
-
 	ASpaceHarvestShooterPawn* shooter = Cast<ASpaceHarvestShooterPawn>(GetPawn());
 
-
 	FVector direction = shooter->GetActorForwardVector();
+
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Direction: " + direction.ToString());
 
 	shooter->Fire(direction);
 }

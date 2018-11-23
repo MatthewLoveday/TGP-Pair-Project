@@ -1,8 +1,6 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
 #include "SpaceHarvestShooterPawn.h"
-#include "SpaceHarvestShooterProjectile.h"
-#include "TimerManager.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -43,3 +41,7 @@ void ASpaceHarvestShooterPawn::Tick(float DeltaSeconds)
 	
 }
 
+void ASpaceHarvestShooterPawn::Fire(FVector FireDirection)
+{
+	weaponBase->FireShot(FireDirection);
+}

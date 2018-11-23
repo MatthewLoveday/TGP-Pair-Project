@@ -42,14 +42,16 @@ void AShipController::FlyHorizontal(float axisValue)
 
 void AShipController::FireWeapon()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Shoot!"));
-
-	//Get Character, then cast to shooter pawn
-
+	//Get Character, then cast to shooter pawn	
 	ASpaceHarvestShooterPawn* shooter = Cast<ASpaceHarvestShooterPawn>(GetPawn());
 
-
 	FVector direction = shooter->GetActorForwardVector();
+
+	FString directionString = "Fire in Direction: " + direction.ToString();
+
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, directionString);
+
 
 	shooter->Fire(direction);
 }

@@ -28,12 +28,7 @@ void ASpaceHarvestShooterPawn::SetupPlayerInputComponent(class UInputComponent* 
 
 void ASpaceHarvestShooterPawn::BeginPlay()
 {
-	//Possess self
-	if(GetWorld())
-	{		
-		UGameplayStatics::GetPlayerController(GetWorld(), 0)->Possess(this);
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Possess!"));   
-	}
+
 }
 
 void ASpaceHarvestShooterPawn::Tick(float DeltaSeconds)

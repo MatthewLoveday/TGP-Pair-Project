@@ -21,21 +21,40 @@ class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 	UPROPERTY(EditAnywhere)
 	float Torque = 10000.0f;
 
+	UPROPERTY(EditAnywhere)
+	float baseAngDrag = 2.0f;
+	
+	UPROPERTY(EditAnywhere)
+	float angDragModifier = 4.0f;
+
 	void Tick(float DeltaSeconds) override;
 
-	void SetupInputComponent();
+	void SetupInputComponent() override;
 	
+	bool stabilizing = false;
+
+	void BeginPlay() override;
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* PlayerMeshRoot;
+
+	UPROPERTY(VisibleAnywhere)
+	ASpaceHarvestShooterPawn* shooter;
+
 public:
 
 	AShipController();
 
 	UFUNCTION(BlueprintCallable)
-	void HandleMovement();
-
-	UFUNCTION(BlueprintCallable)
 	void FlyForward(float axisValue);
 	UFUNCTION(BlueprintCallable)
 	void FlyHorizontal(float axisValue);
+
+	UFUNCTION(BlueprintCallable)
+	void Stabilize();
+
+	UFUNCTION(BlueprintCallable)
+	void StabilizeEnd();
 
 	void FireWeapon();
 };

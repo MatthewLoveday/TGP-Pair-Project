@@ -10,11 +10,26 @@
 
 AShipController::AShipController()
 {
-	SetupInputComponent();
+	SetActorTickEnabled(true);
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void AShipController::BeginPlay()
+{
+	if (!PlayerMeshRoot)
+	{
+		PlayerMeshRoot = Cast<UStaticMeshComponent>(GetPawn()->GetRootComponent());
+	}
 }
 
 void AShipController::Tick(float DeltaSeconds)
 {
+	Super::Tick(DeltaSeconds);
+
+	float dampeningValue = baseAngDrag * stabilizing ? angDragModifier : 1.0f;
+	
+	//Stabilize
+	PlayerMeshRoot->SetAngularDamping(dampeningValue);
 }
 
 void AShipController::SetupInputComponent()
@@ -24,21 +39,15 @@ void AShipController::SetupInputComponent()
 	InputComponent->BindAxis("FlyForward", this, &AShipController::FlyForward);
 	InputComponent->BindAxis("FlyHorizontal", this, &AShipController::FlyHorizontal);
 	InputComponent->BindAction("Fire", IE_Pressed, this, &AShipController::FireWeapon);
-}
 
-void AShipController::HandleMovement()
-{
-
+	//Ship Stabilization
+	InputComponent->BindAction("Stabilize", IE_Pressed, this, &AShipController::Stabilize);
+	InputComponent->BindAction("Stabilize", IE_Released, this, &AShipController::StabilizeEnd);
 }
 
 void AShipController::FlyForward(float axisValue)
 {
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ("Fly Forward: " + std::to_string(axisValue)).c_str());
-
 	//Add force to player 
-	UStaticMeshComponent* PlayerMeshRoot = Cast<UStaticMeshComponent>(GetPawn()->GetRootComponent());
-
 	PlayerMeshRoot->AddForce(GetPawn()->GetActorForwardVector() * axisValue * Thrust);
 }
 
@@ -46,26 +55,30 @@ void AShipController::FlyForward(float axisValue)
 void AShipController::FlyHorizontal(float axisValue)
 {
 	//Add force to player
-	UStaticMeshComponent* PlayerMeshRoot = Cast<UStaticMeshComponent>(GetPawn()->GetRootComponent());
-
 	PlayerMeshRoot->AddAngularImpulse(GetPawn()->GetActorUpVector() * axisValue * Torque);
 }
 
 void AShipController::FireWeapon()
 {
-	//Get Character, then cast to shooter pawn	
-	ASpaceHarvestShooterPawn* shooter = Cast<ASpaceHarvestShooterPawn>(GetPawn());
-
+	//Get forward direction of character
 	FVector direction = shooter->GetActorForwardVector();
 
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Fire in Direction: " + direction.ToString());
-
-	//Apply force in opposite direction
-	//Add force to player 
-	UStaticMeshComponent* PlayerMeshRoot = Cast<UStaticMeshComponent>(GetPawn()->GetRootComponent());
-
+	//Add backward force, opposite of direction
 	PlayerMeshRoot->AddImpulse(-direction * Thrust);
 
-	//shooter->Fire(direction);
+	shooter->Fire(direction);
+}
+
+void AShipController::Stabilize()
+{
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Stabilize");
+	stabilizing = true;
+}
+
+void AShipController::StabilizeEnd()
+{
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "EndStabilize");
+	stabilizing = false;
 }

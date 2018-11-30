@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "WeaponBase.h"
+#include "WeaponBaseActorComponent.h"
 #include "SpaceHarvestShooterPawn.generated.h"
 
 UCLASS(Blueprintable)
@@ -37,7 +37,7 @@ private:
 
 
 
-	AWeaponBase* weaponBase;
+	UWeaponBaseActorComponent* weaponBase;
 
 };
 

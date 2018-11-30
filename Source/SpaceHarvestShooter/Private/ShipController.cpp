@@ -67,5 +67,5 @@ void AShipController::FireWeapon()
 
 	PlayerMeshRoot->AddImpulse(-direction * Thrust);
 
-	//shooter->Fire(direction);
+	shooter->Fire(direction);
 }

@@ -29,11 +29,13 @@ void ASpaceHarvestShooterPawn::SetupPlayerInputComponent(class UInputComponent* 
 void ASpaceHarvestShooterPawn::BeginPlay()
 {
 	//Possess self
-	if(GetWorld())
-	{		
+	if (GetWorld())
+	{
 		UGameplayStatics::GetPlayerController(GetWorld(), 0)->Possess(this);
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Possess!"));   
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Possess!"));
 	}
+
+	weaponBase = Cast<UWeaponBaseActorComponent>(GetComponentByClass(UWeaponBaseActorComponent::StaticClass()));
 }
 
 void ASpaceHarvestShooterPawn::Tick(float DeltaSeconds)
@@ -44,4 +46,5 @@ void ASpaceHarvestShooterPawn::Tick(float DeltaSeconds)
 void ASpaceHarvestShooterPawn::Fire(FVector FireDirection)
 {
 	weaponBase->FireShot(FireDirection);
+
 }

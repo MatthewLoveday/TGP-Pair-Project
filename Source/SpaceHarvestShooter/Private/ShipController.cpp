@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "../Public/ShipController.h"
-#include "SpaceHarvestShooterPawn.h"
 #include "Engine/World.h"
 #include "Engine/Engine.h"
 #include "Components/PrimitiveComponent.h"
@@ -66,7 +65,7 @@ void AShipController::FireWeapon()
 	//Add backward force, opposite of direction
 	PlayerMeshRoot->AddImpulse(-direction * Thrust);
 
-	shooter->Fire(direction);
+	//shooter->Fire(direction);
 }
 
 void AShipController::Stabilize()

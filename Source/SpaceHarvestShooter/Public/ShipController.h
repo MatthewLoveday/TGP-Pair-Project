@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Character.h"
+#include "SpaceHarvestShooterPawn.h"
 
 #include "ShipController.generated.h"
 /**

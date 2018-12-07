@@ -19,7 +19,6 @@ void UInventory::BeginPlay()
 {
 	Super::BeginPlay();
 
-	InputComponent->BindAction("Fire", IE_Pressed, this, &UInventory::ToggleInventory);
 
 }
 

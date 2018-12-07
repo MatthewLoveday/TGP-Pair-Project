@@ -17,7 +17,7 @@ void AShipController::BeginPlay()
 {
 	if (!PlayerMeshRoot)
 	{
-		PlayerMeshRoot = Cast<UStaticMeshComponent>(GetPawn()->GetRootComponent());
+		PlayerMeshRoot = Cast<UStaticMeshComponent>(GetPawn()->GetComponentByClass(UStaticMeshComponent::StaticClass()));
 	}
 
 	if (!shooter)
@@ -43,9 +43,11 @@ void AShipController::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	float dampeningValue = baseAngDrag * stabilizing ? angDragModifier : 1.0f;
-	
+	float linearDampening = baseLinearDrag + stabilizing ? linearDragModifier : 1.0f;
+
 	//Stabilize
 	PlayerMeshRoot->SetAngularDamping(dampeningValue);
+	PlayerMeshRoot->SetLinearDamping(linearDampening);
 }
 
 void AShipController::SetupInputComponent()

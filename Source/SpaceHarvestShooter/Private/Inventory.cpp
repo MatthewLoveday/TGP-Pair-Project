@@ -8,13 +8,7 @@
 UInventory::UInventory()
 {
 	//Tick
-	PrimaryComponentTick.bCanEverTick = true;
 
-	// BeginPlay
-	bWantsBeginPlay = true;
-
-	// InitializeComponent
-	bWantsInitializeComponent = true;
 }
 
 
@@ -22,8 +16,6 @@ UInventory::UInventory()
 void UInventory::BeginPlay()
 {
 	Super::BeginPlay();
-
-
 }
 
 
@@ -31,18 +23,11 @@ void UInventory::BeginPlay()
 void UInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Tick");
 	// ...
 }
 
 void UInventory::ToggleInventory()
 {
 	UIVisible = !UIVisible;
-
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Toggle Inventory");
-
+	UpdateWidgetAppearance();
 }
-

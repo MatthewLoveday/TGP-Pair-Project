@@ -27,6 +27,12 @@ class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 	float baseAngDrag = 2.0f;
 	
 	UPROPERTY(EditAnywhere)
+	float baseLinearDrag = 1.0f;
+
+	UPROPERTY(EditAnywhere)
+	float linearDragModifier = 2.0f;
+
+	UPROPERTY(EditAnywhere)
 	float angDragModifier = 4.0f;
 
 	void Tick(float DeltaSeconds) override;

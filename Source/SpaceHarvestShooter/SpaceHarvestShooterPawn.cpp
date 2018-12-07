@@ -23,17 +23,17 @@ ASpaceHarvestShooterPawn::ASpaceHarvestShooterPawn()
 
 void ASpaceHarvestShooterPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
-	
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
 void ASpaceHarvestShooterPawn::BeginPlay()
 {
-
+	Super::BeginPlay();
 }
 
 void ASpaceHarvestShooterPawn::Tick(float DeltaSeconds)
 {
-	
+	Super::Tick(DeltaSeconds);
 }
 
 void ASpaceHarvestShooterPawn::Fire(FVector FireDirection)

@@ -7,7 +7,7 @@
 #include "Inventory.generated.h"
 
 
-UCLASS(Blueprintable, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup = (InventoryAPI), meta = (BlueprintSpawnableComponent))
 class SPACEHARVESTSHOOTER_API UInventory : public UActorComponent
 {
 	GENERATED_BODY()
@@ -29,5 +29,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ToggleInventory();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateWidgetAppearance();
 	
 };

@@ -19,6 +19,11 @@ void AShipController::BeginPlay()
 	{
 		PlayerMeshRoot = Cast<UStaticMeshComponent>(GetPawn()->GetRootComponent());
 	}
+
+	if (!shooter)
+	{
+		shooter = Cast<ASpaceHarvestShooterPawn>(GetPawn());
+	}
 }
 
 void AShipController::Tick(float DeltaSeconds)
@@ -47,25 +52,34 @@ void AShipController::SetupInputComponent()
 void AShipController::FlyForward(float axisValue)
 {
 	//Add force to player 
-	PlayerMeshRoot->AddForce(GetPawn()->GetActorForwardVector() * axisValue * Thrust);
+	if (shooter)
+	{
+		PlayerMeshRoot->AddForce(shooter->GetActorForwardVector() * axisValue * Thrust);
+	}
 }
 
 
 void AShipController::FlyHorizontal(float axisValue)
 {
 	//Add force to player
-	PlayerMeshRoot->AddAngularImpulse(GetPawn()->GetActorUpVector() * axisValue * Torque);
+	if (shooter)
+	{
+		PlayerMeshRoot->AddAngularImpulse(shooter->GetActorUpVector() * axisValue * Torque);
+	}
 }
 
 void AShipController::FireWeapon()
 {
-	//Get forward direction of character
-	FVector direction = shooter->GetActorForwardVector();
+	if (shooter)
+	{
+		//Get forward direction of character
+		FVector direction = shooter->GetActorForwardVector();
 
-	//Add backward force, opposite of direction
-	PlayerMeshRoot->AddImpulse(-direction * Thrust);
+		//Add backward force, opposite of direction
+		PlayerMeshRoot->AddImpulse(-direction * Thrust);
 
-	//shooter->Fire(direction);
+		//shooter->Fire(direction);
+	}
 }
 
 void AShipController::Stabilize()

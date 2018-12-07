@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Character.h"
 #include "SpaceHarvestShooterPawn.h"
+#include "Inventory.h"
 
 #include "ShipController.generated.h"
 /**
@@ -42,6 +43,9 @@ class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 	UPROPERTY(VisibleAnywhere)
 	ASpaceHarvestShooterPawn* shooter;
 
+	UPROPERTY(VisibleAnywhere)
+	UInventory* inventoryComponent;
+
 public:
 
 	AShipController();
@@ -58,4 +62,6 @@ public:
 	void StabilizeEnd();
 
 	void FireWeapon();
+
+	void ToggleInventory();
 };

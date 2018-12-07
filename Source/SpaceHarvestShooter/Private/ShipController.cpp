@@ -24,6 +24,18 @@ void AShipController::BeginPlay()
 	{
 		shooter = Cast<ASpaceHarvestShooterPawn>(GetPawn());
 	}
+
+	if (!inventoryComponent)
+	{
+		inventoryComponent = Cast<UInventory>(GetPawn()->GetComponentByClass(UInventory::StaticClass()));
+
+		if (inventoryComponent)
+		{
+			if (GEngine)
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Bound Inventory");
+
+		}
+	}
 }
 
 void AShipController::Tick(float DeltaSeconds)
@@ -47,6 +59,8 @@ void AShipController::SetupInputComponent()
 	//Ship Stabilization
 	InputComponent->BindAction("Stabilize", IE_Pressed, this, &AShipController::Stabilize);
 	InputComponent->BindAction("Stabilize", IE_Released, this, &AShipController::StabilizeEnd);
+
+	InputComponent->BindAction("ShowInventory", IE_Pressed, this, &AShipController::ToggleInventory);
 }
 
 void AShipController::FlyForward(float axisValue)
@@ -94,4 +108,9 @@ void AShipController::StabilizeEnd()
 	if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "EndStabilize");
 	stabilizing = false;
+}
+
+void AShipController::ToggleInventory()
+{
+	inventoryComponent->ToggleInventory();
 }

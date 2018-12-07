@@ -7,7 +7,7 @@
 #include "Inventory.generated.h"
 
 
-UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class SPACEHARVESTSHOOTER_API UInventory : public UActorComponent
 {
 	GENERATED_BODY()
@@ -16,7 +16,7 @@ public:
 	// Sets default values for this component's properties
 	UInventory();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool UIVisible;
 
 protected:

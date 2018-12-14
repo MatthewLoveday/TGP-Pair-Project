@@ -36,6 +36,17 @@ void AShipController::BeginPlay()
 
 		}
 	}
+
+	if (!brakeLight)
+	{
+		brakeLight = Cast<UPointLightComponent>(GetPawn()->GetComponentByClass(UPointLightComponent::StaticClass()));
+
+		if (brakeLight)
+		{
+			if (GEngine)
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Bound Light");
+		}
+	}
 }
 
 void AShipController::Tick(float DeltaSeconds)
@@ -86,14 +97,14 @@ void AShipController::FlyHorizontal(float axisValue)
 
 void AShipController::FireWeapon()
 {
-	if (shooter)
+	if (shooter && !inventoryComponent->UIVisible)
 	{
 		//Get forward direction of character
 		FVector direction = shooter->GetActorForwardVector();
 
 		//Add backward force, opposite of direction
 		PlayerMeshRoot->AddImpulse(-direction * Thrust);
-
+		
 		//shooter->Fire(direction);
 	}
 }
@@ -103,6 +114,11 @@ void AShipController::Stabilize()
 	if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Stabilize");
 	stabilizing = true;
+
+	if (brakeLight)
+	{
+		brakeLight->SetVisibility(true);
+	}
 }
 
 void AShipController::StabilizeEnd()
@@ -110,6 +126,11 @@ void AShipController::StabilizeEnd()
 	if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "EndStabilize");
 	stabilizing = false;
+
+	if (brakeLight)
+	{
+		brakeLight->SetVisibility(false);
+	}
 }
 
 void AShipController::ToggleInventory()

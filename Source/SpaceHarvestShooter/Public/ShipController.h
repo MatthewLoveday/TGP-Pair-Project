@@ -7,11 +7,10 @@
 #include "GameFramework/Character.h"
 #include "SpaceHarvestShooterPawn.h"
 #include "Inventory.h"
+#include "Components/PointLightComponent.h"
 
 #include "ShipController.generated.h"
-/**
- * 
- */
+
 UCLASS()
 class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 {
@@ -51,6 +50,9 @@ class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 
 	UPROPERTY(VisibleAnywhere)
 	UInventory* inventoryComponent;
+
+	UPROPERTY(EditAnywhere)
+	UPointLightComponent* brakeLight;
 
 public:
 

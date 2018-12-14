@@ -105,7 +105,7 @@ void AShipController::FireWeapon()
 		//Add backward force, opposite of direction
 		PlayerMeshRoot->AddImpulse(-direction * Thrust);
 		
-		//shooter->Fire(direction);
+		shooter->Fire(direction);
 	}
 }
 

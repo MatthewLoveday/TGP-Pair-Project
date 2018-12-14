@@ -29,6 +29,7 @@ void ASpaceHarvestShooterPawn::SetupPlayerInputComponent(class UInputComponent* 
 void ASpaceHarvestShooterPawn::BeginPlay()
 {
 	Super::BeginPlay();
+	weaponBase = Cast<UWeaponBaseComponent>(GetComponentByClass(UWeaponBaseComponent::StaticClass()));
 }
 
 void ASpaceHarvestShooterPawn::Tick(float DeltaSeconds)

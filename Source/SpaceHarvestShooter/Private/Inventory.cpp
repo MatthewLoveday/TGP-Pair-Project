@@ -16,6 +16,7 @@ UInventory::UInventory()
 void UInventory::BeginPlay()
 {
 	Super::BeginPlay();
+	
 }
 
 

@@ -45,9 +45,6 @@ void UWeaponBaseComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UWeaponBaseComponent::FireShot(FVector direction)
 {
-	if(GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Fire!"));
-
 	if (ableToFire)
 	{
 		if (ProjectileClass != NULL)

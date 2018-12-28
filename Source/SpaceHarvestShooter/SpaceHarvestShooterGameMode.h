@@ -13,6 +13,13 @@ class ASpaceHarvestShooterGameMode : public AGameModeBase
 
 public:
 	ASpaceHarvestShooterGameMode();
+
+	UFUNCTION(BlueprintCallable)
+		void LevelSetupComplete();
+
+protected:
+	UFUNCTION(BlueprintImplementableEvent)
+		void OnGameStart();
 };
 
 

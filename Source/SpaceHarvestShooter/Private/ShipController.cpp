@@ -74,6 +74,9 @@ void AShipController::SetupInputComponent()
 	InputComponent->BindAction("Stabilize", IE_Released, this, &AShipController::StabilizeEnd);
 
 	InputComponent->BindAction("ShowInventory", IE_Pressed, this, &AShipController::ToggleInventory);
+
+	//Pause Menu
+	InputComponent->BindAction("Pause", IE_Pressed, this, &AShipController::Pause);
 }
 
 void AShipController::FlyForward(float axisValue)
@@ -136,4 +139,9 @@ void AShipController::StabilizeEnd()
 void AShipController::ToggleInventory()
 {
 	inventoryComponent->ToggleInventory();
+}
+
+void AShipController::Pause()
+{
+	OpenPauseMenu();
 }

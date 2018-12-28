@@ -22,10 +22,24 @@ void AEnemyPawn::BeginPlay()
 void AEnemyPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (!CanRespawn)
+	{
+		respawnTimerElapsed += DeltaTime;
+		if (respawnTimerElapsed >= RespawnTime)
+		{
+			CanRespawn = true;
+			respawnTimerElapsed = 0;
+		}
+	}
 }
 
 void AEnemyPawn::FireWeapon()
 {
 
+}
+
+void AEnemyPawn::StartRespawnTimer(float timeToRespawn)
+{
+	CanRespawn = false;
+	RespawnTime = timeToRespawn;
 }

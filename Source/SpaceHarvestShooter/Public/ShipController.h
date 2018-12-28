@@ -72,4 +72,8 @@ public:
 	void FireWeapon();
 
 	void ToggleInventory();
+
+	void Pause();
+	UFUNCTION(BlueprintImplementableEvent)
+		void OpenPauseMenu();
 };

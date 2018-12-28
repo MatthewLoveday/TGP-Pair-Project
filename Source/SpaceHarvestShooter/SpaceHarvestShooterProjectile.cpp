@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/Engine.h"
 
 ASpaceHarvestShooterProjectile::ASpaceHarvestShooterProjectile() 
 {
@@ -40,6 +41,5 @@ void ASpaceHarvestShooterProjectile::OnHit(UPrimitiveComponent* HitComp, AActor*
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 20.0f, GetActorLocation());
 	}
-
 	Destroy();
 }

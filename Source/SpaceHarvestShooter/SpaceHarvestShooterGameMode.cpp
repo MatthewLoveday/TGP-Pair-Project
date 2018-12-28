@@ -9,3 +9,7 @@ ASpaceHarvestShooterGameMode::ASpaceHarvestShooterGameMode()
 	DefaultPawnClass = ASpaceHarvestShooterPawn::StaticClass();
 }
 
+void ASpaceHarvestShooterGameMode::LevelSetupComplete()
+{
+	OnGameStart();
+}

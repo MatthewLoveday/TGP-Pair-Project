@@ -31,9 +31,9 @@ public:
 	void ShotTimerExpired();
 
 
-private:
+protected:
 	
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UWeaponBaseComponent* weaponBase;
 
 };

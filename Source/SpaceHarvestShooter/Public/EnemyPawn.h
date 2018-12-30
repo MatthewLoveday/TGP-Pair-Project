@@ -14,13 +14,22 @@ class SPACEHARVESTSHOOTER_API AEnemyPawn : public APawn
 public:
 	// Sets default values for this pawn's properties
 	AEnemyPawn();
+	UFUNCTION(BlueprintCallable)
+		void StartRespawnTimer(float timeToRespawn);
 
 protected:
+	UPROPERTY(BlueprintReadWrite, Category = Gameplay)
+		bool CanRespawn = true;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
 		float forceAmount = 10.0f;
+private:
+	bool WaitingToRespawn;
+	float RespawnTime;
+	float respawnTimerElapsed = 0;
 
 public:	
 	// Called every frame
@@ -28,5 +37,4 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void FireWeapon();
-
 };

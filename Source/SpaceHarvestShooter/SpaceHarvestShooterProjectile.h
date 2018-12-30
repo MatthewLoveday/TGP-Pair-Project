@@ -22,6 +22,13 @@ class ASpaceHarvestShooterProjectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
 
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = Gameplay)
+		TSubclassOf<class UDamageType> DamageType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		float damage;
+
 public:
 	ASpaceHarvestShooterProjectile();
 

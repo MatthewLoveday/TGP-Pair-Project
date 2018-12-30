@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "WeaponBaseActorComponent.h"
+#include "WeaponBaseComponent.h"
 #include "SpaceHarvestShooterPawn.generated.h"
 
 UCLASS(Blueprintable)
@@ -31,13 +31,10 @@ public:
 	void ShotTimerExpired();
 
 
-private:
-
-	void HandleMovement();
-
-
-
-	UWeaponBaseActorComponent* weaponBase;
+protected:
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UWeaponBaseComponent* weaponBase;
 
 };
 

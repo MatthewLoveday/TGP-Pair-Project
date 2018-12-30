@@ -7,7 +7,7 @@
 #include "HealthComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SPACEHARVESTSHOOTER_API UHealthComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -20,10 +20,20 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float maxHealth;
+
+	UPROPERTY(BlueprintReadWrite)
+		float currentHealth;
+
+	UPROPERTY(BlueprintReadWrite)
+		bool dead;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	UFUNCTION(BlueprintCallable)
+		void ModifyHealth(float modifyingValue, bool healing);
 	
 };

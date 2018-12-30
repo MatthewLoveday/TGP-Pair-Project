@@ -15,23 +15,23 @@ UCLASS()
 class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 {
 	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere)
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Thrust = 90000.0f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Torque = 10000.0f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float baseAngDrag = 2.0f;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float baseLinearDrag = 1.0f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float linearDragModifier = 2.0f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float angDragModifier = 4.0f;
 
 	void Tick(float DeltaSeconds) override;
@@ -72,4 +72,8 @@ public:
 	void FireWeapon();
 
 	void ToggleInventory();
+
+	void Pause();
+	UFUNCTION(BlueprintImplementableEvent)
+		void OpenPauseMenu();
 };

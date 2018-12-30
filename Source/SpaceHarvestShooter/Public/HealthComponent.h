@@ -7,7 +7,7 @@
 #include "HealthComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SPACEHARVESTSHOOTER_API UHealthComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -25,6 +25,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 		float currentHealth;
+
+	UPROPERTY(BlueprintReadWrite)
+		bool dead;
 
 public:	
 	// Called every frame

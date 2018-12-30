@@ -19,9 +19,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTexture2D* image;
 
-	UPROPERTY(VisibleAnywhere)
-	uint16 count = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int count = 1;
 
-	UPROPERTY(EditAnywhere)
-	uint16 ID = 0; //0 being reserved for null
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int ID = 0; //0 being reserved for null
 };

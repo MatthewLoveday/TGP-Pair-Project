@@ -7,6 +7,8 @@
 #include "InventoryItem.h"
 #include "Inventory.generated.h"
 
+#define INV_WIDTH 6
+
 UCLASS(Blueprintable, ClassGroup = (InventoryAPI), meta = (BlueprintSpawnableComponent))
 class SPACEHARVESTSHOOTER_API UInventory : public UActorComponent
 {
@@ -31,8 +33,24 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
+	bool ContainsItem(int itemID);
+
+	UFUNCTION(BlueprintCallable)
+	bool RemoveItem(int itemID); //returns true or false dependant on if there was an item to remove
+
+	UFUNCTION(BlueprintCallable)
+	UInventoryItem* GetItemAt(int x, int y);
+
+	UFUNCTION(BlueprintCallable)
+	bool ConsumeItem(int itemID);
+
+	UFUNCTION(BlueprintCallable)
+	void AddItem(UInventoryItem* item);
+
+	UFUNCTION(BlueprintCallable)
 	void ToggleInventory();
 
+	//Overriden from blueprint
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateWidgetAppearance();
 	

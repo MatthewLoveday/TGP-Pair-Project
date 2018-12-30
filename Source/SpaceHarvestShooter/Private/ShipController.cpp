@@ -33,7 +33,6 @@ void AShipController::BeginPlay()
 		{
 			if (GEngine)
 				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Bound Inventory");
-
 		}
 	}
 
@@ -43,8 +42,7 @@ void AShipController::BeginPlay()
 
 		if (brakeLight)
 		{
-			if (GEngine)
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Bound Light");
+			brakeLight->SetVisibility(false);
 		}
 	}
 }

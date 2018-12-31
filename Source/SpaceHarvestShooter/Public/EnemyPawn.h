@@ -17,6 +17,25 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void StartRespawnTimer(float timeToRespawn);
 
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* MeshRoot;
+
+	//Player to target
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* target;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float fireRange = 2000.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float followRange = 3000.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Thrust = 100000;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Torque = 12000;
+
 protected:
 	UPROPERTY(BlueprintReadWrite, Category = Gameplay)
 		bool CanRespawn = true;

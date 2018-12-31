@@ -18,5 +18,10 @@ class SPACEHARVESTSHOOTER_API UInventoryItem : public UObject
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTexture2D* image;
-	
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int count = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int ID = 0; //0 being reserved for null
 };

@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "InventoryItem.h"
 #include "Inventory.generated.h"
-
 
 UCLASS(Blueprintable, ClassGroup = (InventoryAPI), meta = (BlueprintSpawnableComponent))
 class SPACEHARVESTSHOOTER_API UInventory : public UActorComponent
@@ -18,6 +18,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool UIVisible;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<UInventoryItem*> ItemsArray;
 
 protected:
 	// Called when the game starts

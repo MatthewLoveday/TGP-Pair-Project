@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Inventory.h"
+#include "../Public/Inventory.h"
 #include "Engine/World.h"
 #include "Engine/Engine.h"
 
@@ -16,6 +16,7 @@ UInventory::UInventory()
 void UInventory::BeginPlay()
 {
 	Super::BeginPlay();
+	
 }
 
 

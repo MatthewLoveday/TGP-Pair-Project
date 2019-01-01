@@ -11,8 +11,6 @@ AShipController::AShipController()
 {
 	SetActorTickEnabled(true);
 	PrimaryActorTick.bCanEverTick = true;
-
-	BaseThrust = Thrust;
 }
 
 void AShipController::BeginPlay()

@@ -17,9 +17,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void LevelSetupComplete();
 
+	UFUNCTION(BlueprintCallable)
+		void CharacterKilled(class AEnemyPawn* killedEnemy);
+
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnGameStart();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void OnCharacterKilled(AEnemyPawn* KilledEnemy);
 };
 
 

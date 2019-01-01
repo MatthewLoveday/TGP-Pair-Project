@@ -27,6 +27,9 @@ public:
 	/* Fire a shot in the specified direction */
 	void Fire(FVector FireDirection);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void PlayFireSound();
+
 	/* Handler for the fire timer expiry */
 	void ShotTimerExpired();
 

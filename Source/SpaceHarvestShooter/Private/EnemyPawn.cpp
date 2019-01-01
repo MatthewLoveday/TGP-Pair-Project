@@ -23,6 +23,11 @@ void AEnemyPawn::BeginPlay()
 	{
 		MeshRoot = Cast<UStaticMeshComponent>(GetComponentByClass(UStaticMeshComponent::StaticClass()));
 	}
+
+	if (!weaponBase)
+	{
+		weaponBase = Cast<UWeaponBaseComponent>(GetComponentByClass(UWeaponBaseComponent::StaticClass()));
+	}
 }
 
 // Called every frame
@@ -73,7 +78,7 @@ void AEnemyPawn::Tick(float DeltaTime)
 				MeshRoot->AddForce(GetActorForwardVector() * Thrust);
 			}
 
-			if(angleBetweenPlayerAndForward > -1 && angleBetweenPlayerAndForward < 1)
+			if(angleBetweenPlayerAndForward > -3 && angleBetweenPlayerAndForward < 3)
 			{
 				if(distance < fireRange)
 				{
@@ -88,7 +93,14 @@ void AEnemyPawn::Tick(float DeltaTime)
 
 void AEnemyPawn::FireWeapon()
 {
-	
+	if(weaponBase)
+	{
+		//Get forward direction of character
+		FVector direction = weaponBase->GetForwardVector();
+
+
+		weaponBase->FireShot(direction);
+	}
 }
 
 void AEnemyPawn::StartRespawnTimer(float timeToRespawn)

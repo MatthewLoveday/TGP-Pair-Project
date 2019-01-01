@@ -40,4 +40,5 @@ void ASpaceHarvestShooterPawn::Tick(float DeltaSeconds)
 void ASpaceHarvestShooterPawn::Fire(FVector FireDirection)
 {
 	weaponBase->FireShot(FireDirection);
+	PlayFireSound();
 }

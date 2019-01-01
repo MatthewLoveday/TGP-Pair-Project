@@ -16,7 +16,7 @@ UInventory::UInventory()
 void UInventory::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 
@@ -31,10 +31,13 @@ bool UInventory::ContainsItem(int itemID)
 {
 	for (int i = 0; i < ItemsArray.Num(); ++i)
 	{
-		//Loop through each item in array and compare their item ID. 
-		if(itemID == ItemsArray[i]->ID)
+		if(ItemsArray[i] != nullptr)
 		{
-			return true;
+			//Loop through each item in array and compare their item ID. 
+			if(itemID == ItemsArray[i]->ID)
+			{
+				return true;
+			}
 		}
 	}
 
@@ -54,13 +57,18 @@ bool UInventory::RemoveItem(int itemID)
 			{				
 				ItemsArray[i]->count--;
 			}
-			else
-			{
-				delete ItemsArray[i];
-				ItemsArray[i] = nullptr;
-			}
+		}
+
+		if(ItemsArray[i]->count == 0)
+		{
+			ItemsArray.RemoveAt(i);
+
+			if(GEngine)
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Removed Item");
+
 		}
 	}
+
 
 	UpdateWidgetAppearance();
 
@@ -69,7 +77,12 @@ bool UInventory::RemoveItem(int itemID)
 
 UInventoryItem* UInventory::GetItemAt(int x, int y)
 {
-	return ItemsArray[x +  (y * INV_WIDTH)];
+	if(ItemsArray.Num() > x +  (y * INV_WIDTH) + 1)
+	{
+		return ItemsArray[x +  (y * INV_WIDTH)];		
+	}
+
+	return nullptr;
 }
 
 bool UInventory::ConsumeItem(int itemID)
@@ -79,15 +92,38 @@ bool UInventory::ConsumeItem(int itemID)
 
 void UInventory::AddItem(UInventoryItem* item)
 {
+	bool Complete = false;
+	//Take into account item count
 	for (int i = 0; i < ItemsArray.Num(); ++i)
 	{
 		//Loop through each item in array and compare their item ID. 
-		if(ItemsArray[i] == nullptr)
-		{
-			ItemsArray[i] = item;
-			break;
+		if(ItemsArray[i] != nullptr)
+		{			
+			if(ItemsArray[i]->ID == item->ID) //if item exists, add it to stack
+			{
+				//Stack Item if the amount plus the added amount is less than the max stack size.
+				if(ItemsArray[i]->count + item->count <= 64)
+				{
+					ItemsArray[i]->count += item->count;
+					Complete = true;
+					break;
+				}
+				else if(ItemsArray[i]->count <= 64)
+				{
+					//Some room in this stack, add what we can.
+					int toAdd = 64 - ItemsArray[i]->count;
+					ItemsArray[i]->count = 64;
+					item->count -= toAdd;
+				}
+			}
 		}
-	}	
+	}
+
+	if(!Complete)
+	{
+		if(ItemsArray.Num() <= 18)
+			ItemsArray.Add(item);
+	}
 }
 
 void UInventory::ToggleInventory()

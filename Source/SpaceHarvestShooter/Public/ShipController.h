@@ -39,6 +39,7 @@ protected:
 	void SetupInputComponent() override;
 	
 	bool stabilizing = false;
+	bool dampening = false; //angular version of this
 
 	void BeginPlay() override;
 
@@ -54,6 +55,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UPointLightComponent* brakeLight;
 
+	UPROPERTY(EditAnywhere)
+	UPointLightComponent* dampenLight;
+
 public:
 
 	AShipController();
@@ -64,10 +68,19 @@ public:
 	void FlyHorizontal(float axisValue);
 
 	UFUNCTION(BlueprintCallable)
+	void Strafe(float axisValue);
+
+	UFUNCTION(BlueprintCallable)
 	void Stabilize();
 
 	UFUNCTION(BlueprintCallable)
 	void StabilizeEnd();
+
+	UFUNCTION(BlueprintCallable)
+	void Dampen();
+
+	UFUNCTION(BlueprintCallable)
+	void DampenEnd();
 
 	void FireWeapon();
 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "WeaponBaseComponent.h"
 #include "EnemyPawn.generated.h"
 
 UCLASS()
@@ -15,7 +16,7 @@ public:
 	// Sets default values for this pawn's properties
 	AEnemyPawn();
 	UFUNCTION(BlueprintCallable)
-		void StartRespawnTimer(float timeToRespawn);
+	void StartRespawnTimer(float timeToRespawn);
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* MeshRoot;
@@ -28,7 +29,7 @@ public:
 	float fireRange = 2000.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float followRange = 3000.0f;
+	float followRange = 20000.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Thrust = 100000;
@@ -36,15 +37,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Torque = 12000;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UWeaponBaseComponent* weaponBase;
+
 protected:
 	UPROPERTY(BlueprintReadWrite, Category = Gameplay)
-		bool CanRespawn = true;
+	bool CanRespawn = true;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
-		float forceAmount = 10.0f;
+	float forceAmount = 10.0f;
 private:
 	bool WaitingToRespawn;
 	float RespawnTime;
@@ -55,5 +59,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-		void FireWeapon();
+	void FireWeapon();
 };

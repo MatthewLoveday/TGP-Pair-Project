@@ -50,6 +50,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ToggleInventory();
 
+	UFUNCTION(BlueprintCallable)
+	int GetItemCount(int itemID);
+
 	//Overriden from blueprint
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateWidgetAppearance();

@@ -38,11 +38,21 @@ void AShipController::BeginPlay()
 
 	if (!brakeLight)
 	{
-		brakeLight = Cast<UPointLightComponent>(GetPawn()->GetComponentByClass(UPointLightComponent::StaticClass()));
+		brakeLight = Cast<UPointLightComponent>(GetPawn()->GetComponentsByClass(UPointLightComponent::StaticClass())[1]);
 
 		if (brakeLight)
 		{
 			brakeLight->SetVisibility(false);
+		}
+	}
+
+	if (!dampenLight)
+	{
+		dampenLight = Cast<UPointLightComponent>(GetPawn()->GetComponentsByClass(UPointLightComponent::StaticClass())[0]);
+
+		if (dampenLight)
+		{
+			dampenLight->SetVisibility(false);
 		}
 	}
 }
@@ -51,7 +61,7 @@ void AShipController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	float dampeningValue = baseAngDrag * stabilizing ? angDragModifier : 1.0f;
+	float dampeningValue = baseAngDrag * dampening ? angDragModifier : 1.0f;
 	float linearDampening = baseLinearDrag + stabilizing ? linearDragModifier : 1.0f;
 
 	//Stabilize
@@ -72,6 +82,10 @@ void AShipController::SetupInputComponent()
 	//Ship Stabilization
 	InputComponent->BindAction("Stabilize", IE_Pressed, this, &AShipController::Stabilize);
 	InputComponent->BindAction("Stabilize", IE_Released, this, &AShipController::StabilizeEnd);
+
+	//Ship Dampening
+	InputComponent->BindAction("Dampening", IE_Pressed, this, &AShipController::Dampen);
+	InputComponent->BindAction("Dampening", IE_Released, this, &AShipController::DampenEnd);
 
 	InputComponent->BindAction("ShowInventory", IE_Pressed, this, &AShipController::ToggleInventory);
 
@@ -141,6 +155,26 @@ void AShipController::StabilizeEnd()
 	if (brakeLight)
 	{
 		brakeLight->SetVisibility(false);
+	}
+}
+
+void AShipController::Dampen()
+{
+	dampening = true;
+
+	if(dampenLight)
+	{
+		dampenLight->SetVisibility(true);
+	}
+}
+
+void AShipController::DampenEnd()
+{
+	dampening = false;
+
+	if(dampenLight)
+	{
+		dampenLight->SetVisibility(false);
 	}
 }
 

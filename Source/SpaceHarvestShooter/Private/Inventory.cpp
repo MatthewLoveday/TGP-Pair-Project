@@ -31,10 +31,13 @@ bool UInventory::ContainsItem(int itemID)
 {
 	for (int i = 0; i < ItemsArray.Num(); ++i)
 	{
-		//Loop through each item in array and compare their item ID. 
-		if(itemID == ItemsArray[i]->ID)
+		if(ItemsArray[i] != nullptr)
 		{
-			return true;
+			//Loop through each item in array and compare their item ID. 
+			if(itemID == ItemsArray[i]->ID)
+			{
+				return true;
+			}
 		}
 	}
 
@@ -54,13 +57,18 @@ bool UInventory::RemoveItem(int itemID)
 			{				
 				ItemsArray[i]->count--;
 			}
-			else
-			{
-				delete ItemsArray[i];
-				ItemsArray[i] = nullptr;
-			}
+		}
+
+		if(ItemsArray[i]->count == 0)
+		{
+			ItemsArray.RemoveAt(i);
+
+			if(GEngine)
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Removed Item");
+
 		}
 	}
+
 
 	UpdateWidgetAppearance();
 
@@ -69,7 +77,12 @@ bool UInventory::RemoveItem(int itemID)
 
 UInventoryItem* UInventory::GetItemAt(int x, int y)
 {
-	return ItemsArray[x +  (y * INV_WIDTH)];
+	if(ItemsArray.Num() > x +  (y * INV_WIDTH) + 1)
+	{
+		return ItemsArray[x +  (y * INV_WIDTH)];		
+	}
+
+	return nullptr;
 }
 
 bool UInventory::ConsumeItem(int itemID)
@@ -79,9 +92,6 @@ bool UInventory::ConsumeItem(int itemID)
 
 void UInventory::AddItem(UInventoryItem* item)
 {
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Item added has an ID of " + FString::FromInt(item->ID) + " and has a count of " + FString::FromInt(item->count));
-
 	bool Complete = false;
 	//Take into account item count
 	for (int i = 0; i < ItemsArray.Num(); ++i)

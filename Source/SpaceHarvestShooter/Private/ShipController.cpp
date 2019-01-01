@@ -124,13 +124,18 @@ void AShipController::FireWeapon()
 {
 	if (shooter && !inventoryComponent->UIVisible)
 	{
-		//Get forward direction of character
-		FVector direction = shooter->GetActorForwardVector();
+		if(inventoryComponent->ContainsItem(1)) //Inventory contains bullet
+		{
+			inventoryComponent->RemoveItem(1);
 
-		//Add backward force, opposite of direction
-		PlayerMeshRoot->AddImpulse(-direction * Thrust);
-		
-		shooter->Fire(direction);
+			//Get forward direction of character
+			FVector direction = shooter->GetActorForwardVector();
+
+			//Add backward force, opposite of direction
+			PlayerMeshRoot->AddImpulse(-direction * Thrust);
+			
+			shooter->Fire(direction);
+		}
 	}
 }
 

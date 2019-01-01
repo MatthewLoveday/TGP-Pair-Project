@@ -65,6 +65,8 @@ void AShipController::SetupInputComponent()
 
 	InputComponent->BindAxis("FlyForward", this, &AShipController::FlyForward);
 	InputComponent->BindAxis("FlyHorizontal", this, &AShipController::FlyHorizontal);
+	InputComponent->BindAxis("Strafe", this, &AShipController::Strafe);
+
 	InputComponent->BindAction("Fire", IE_Pressed, this, &AShipController::FireWeapon);
 
 	//Ship Stabilization
@@ -93,6 +95,14 @@ void AShipController::FlyHorizontal(float axisValue)
 	if (shooter)
 	{
 		PlayerMeshRoot->AddAngularImpulse(shooter->GetActorUpVector() * axisValue * Torque);
+	}
+}
+
+void AShipController::Strafe(float axisValue)
+{
+	if(shooter)
+	{
+		PlayerMeshRoot->AddForce(shooter->GetActorRightVector() * axisValue * Thrust);
 	}
 }
 

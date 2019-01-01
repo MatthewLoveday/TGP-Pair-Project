@@ -64,6 +64,9 @@ public:
 	void FlyHorizontal(float axisValue);
 
 	UFUNCTION(BlueprintCallable)
+	void Strafe(float axisValue);
+
+	UFUNCTION(BlueprintCallable)
 	void Stabilize();
 
 	UFUNCTION(BlueprintCallable)

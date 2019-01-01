@@ -18,6 +18,8 @@ class SPACEHARVESTSHOOTER_API AShipController : public APlayerController
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Thrust = 90000.0f;
+	UPROPERTY(BlueprintReadOnly)
+		float BaseThrust;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Torque = 10000.0f;

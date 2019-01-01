@@ -126,6 +126,19 @@ void UInventory::AddItem(UInventoryItem* item)
 	}
 }
 
+int UInventory::GetItemCount(int itemID)
+{
+	int total = 0;
+
+	for (int i = 0; i < ItemsArray.Num(); ++i)
+	{
+		total += ItemsArray[i]->count;
+	}
+
+
+	return total;
+}
+
 void UInventory::ToggleInventory()
 {
 	UIVisible = !UIVisible;

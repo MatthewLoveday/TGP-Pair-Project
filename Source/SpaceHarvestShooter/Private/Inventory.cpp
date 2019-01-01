@@ -16,7 +16,7 @@ UInventory::UInventory()
 void UInventory::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 
@@ -79,15 +79,41 @@ bool UInventory::ConsumeItem(int itemID)
 
 void UInventory::AddItem(UInventoryItem* item)
 {
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Item added has an ID of " + FString::FromInt(item->ID) + " and has a count of " + FString::FromInt(item->count));
+
+	bool Complete = false;
+	//Take into account item count
 	for (int i = 0; i < ItemsArray.Num(); ++i)
 	{
 		//Loop through each item in array and compare their item ID. 
-		if(ItemsArray[i] == nullptr)
-		{
-			ItemsArray[i] = item;
-			break;
+		if(ItemsArray[i] != nullptr)
+		{			
+			if(ItemsArray[i]->ID == item->ID) //if item exists, add it to stack
+			{
+				//Stack Item if the amount plus the added amount is less than the max stack size.
+				if(ItemsArray[i]->count + item->count <= 64)
+				{
+					ItemsArray[i]->count += item->count;
+					Complete = true;
+					break;
+				}
+				else if(ItemsArray[i]->count <= 64)
+				{
+					//Some room in this stack, add what we can.
+					int toAdd = 64 - ItemsArray[i]->count;
+					ItemsArray[i]->count = 64;
+					item->count -= toAdd;
+				}
+			}
 		}
-	}	
+	}
+
+	if(!Complete)
+	{
+		if(ItemsArray.Num() <= 18)
+			ItemsArray.Add(item);
+	}
 }
 
 void UInventory::ToggleInventory()

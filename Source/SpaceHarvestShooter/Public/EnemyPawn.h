@@ -29,7 +29,7 @@ public:
 	float fireRange = 2000.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float followRange = 3000.0f;
+	float followRange = 20000.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Thrust = 100000;

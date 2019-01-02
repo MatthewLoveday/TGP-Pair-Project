@@ -124,6 +124,8 @@ void UInventory::AddItem(UInventoryItem* item)
 		if(ItemsArray.Num() <= 18)
 			ItemsArray.Add(item);
 	}
+
+	UpdateWidgetAppearance();
 }
 
 int UInventory::GetItemCount(int itemID)

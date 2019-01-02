@@ -56,5 +56,4 @@ public:
 	//Overriden from blueprint
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateWidgetAppearance();
-	
 };
